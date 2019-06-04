@@ -5,11 +5,22 @@
 // xhr.done(function (response) { console.log("success got data", response); });
 
 //javascript, jQuery API -- Based on Class Activity
-var queryURL = "http://api.giphy.com/v1/gifs/search?q=ryan+gosling&api_key=0ha2JYIPcQ2JlisGgiDTdoH9mt6qXvdw&limit=10";
+var queryURL = "https://api.giphy.com/v1/gifs/search?q=ryan+gosling&api_key=0ha2JYIPcQ2JlisGgiDTdoH9mt6qXvdw&limit=10";
 
 $.ajax({
-  url: queryURL,
-  method: "GET"
-}).then(function(response) {
-  console.log("response: ", response);
+    url: queryURL,
+    method: "GET"
+}).then(function (response) {
+    console.log("response: ", response);
+
+
+    var gifs = response.data
+
+    for (var i = 0; i < response.data.length; i++) {
+        $("#gifDisplay").append("<img src='" + response.data[i].images.original_still.url + "'>")
+    }
+    console.log("gifs: ", gifs);
 });
+
+
+// gifs.response.data.images.fixed_width.url
