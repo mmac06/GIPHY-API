@@ -2,8 +2,6 @@ img {
     height: 100%;
     width: 275px;
     margin: 3px;
-
-    /* margin: auto; */
 }
 
 #searchCol {
@@ -15,4 +13,8 @@ img {
     margin-bottom: 150px;
     /* margin-right: auto;
     margin-left: auto; */
+}
+
+.gif-button {
+    margin: 10px;
 }

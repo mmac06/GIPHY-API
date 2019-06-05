@@ -7,23 +7,32 @@
 // array for pre-loaded terms
 var startGIF = ["simpsons", "game of thrones", "family guy", "ice cube"];
 
-//javascript, jQuery API -- Based on Class Activity
-var queryURL = "https://api.giphy.com/v1/gifs/search?q=ryan+gosling&api_key=0ha2JYIPcQ2JlisGgiDTdoH9mt6qXvdw&limit=10";
+// function to get gifs to display
+function displayGIF() {
 
-$.ajax({
-    url: queryURL,
-    method: "GET"
-}).then(function (response) {
-    console.log("response: ", response);
+    var gif = $(this).attr("data-name");
+    //javascript, jQuery API -- Based on Class Activity
+    var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + gif + "&api_key=0ha2JYIPcQ2JlisGgiDTdoH9mt6qXvdw&limit=10";
+
+    console.log("gif var: " + gif);
+
+    // Ajax to pull from GIHPY API
+    $.ajax({
+        url: queryURL,
+        method: "GET"
+    }).then(function (response) {
+        console.log("response: ", response);
+        $("#gifDisplay").empty();
+
+        var gifs = response.data
+
+        for (var i = 0; i < gifs.length; i++) {
+            $("#gifDisplay").append("<img src='" + gifs[i].images.fixed_height_still.url + "'>")
+        }
+    });
+}
 
 
-    var gifs = response.data
-
-    for (var i = 0; i < gifs.length; i++) {
-        $("#gifDisplay").append("<img src='" + gifs[i].images.fixed_height_still.url + "'>")
-    }
-
-});
 
 
 // Function for displaying gifs data
@@ -36,17 +45,20 @@ function renderButtons() {
     for (var i = 0; i < startGIF.length; i++) {
 
         // Then dynamicaly generates buttons for each gif in the array
-        // This code $("<button>") is all jQuery needs to create the beginning and end tag. (<button></button>)
         var a = $("<button>");
         // Adds a class of gif to our button
-        a.addClass("gif");
+        a.addClass("gif-button");
         // Added a data-attribute
         a.attr("data-name", startGIF[i]);
         // Provided the initial button text
         a.text(startGIF[i]);
-        // Added the button to the buttons-view div
+        // Added the button to the terms div
         $("#terms").append(a);
     }
 }
 
+// Adding click event listeners to all elements with a class of "gif-button"
+$(document).on("click", ".gif-button", displayGIF);
+
 renderButtons();
+displayGIF();
