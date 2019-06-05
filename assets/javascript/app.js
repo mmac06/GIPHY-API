@@ -16,10 +16,10 @@ $.ajax({
 
     var gifs = response.data
 
-    for (var i = 0; i < response.data.length; i++) {
-        $("#gifDisplay").append("<img src='" + response.data[i].images.original_still.url + "'>")
+    for (var i = 0; i < gifs.length; i++) {
+        $("#gifDisplay").append("<img src='" + gifs[i].images.fixed_height_still.url + "'>")
     }
-    console.log("gifs: ", gifs);
+
 });
 
 

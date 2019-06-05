@@ -1,0 +1,10 @@
+img {
+    height: 100%;
+    width: 300px;
+    margin: 3px;
+}
+
+#searchCol {
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
