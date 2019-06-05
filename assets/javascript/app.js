@@ -1,12 +1,5 @@
-// API KEY: 0ha2JYIPcQ2JlisGgiDTdoH9mt6qXvdw
-
-//javascript, jQuery API -- from GIPHY Website
-// var xhr = $.get("http://api.giphy.com/v1/gifs/search?q=ryan+gosling&api_key=0ha2JYIPcQ2JlisGgiDTdoH9mt6qXvdw&limit=10");
-// xhr.done(function (response) { console.log("success got data", response); });
-
 // array for pre-loaded terms
 var gifArray = ["simpsons", "game of thrones", "family guy", "ice cube"];
-
 
 
 // function to get gifs to display
@@ -18,6 +11,7 @@ function displayGIF() {
 
     console.log("gif var: " + gif);
 
+
     // Ajax to pull from GIHPY API
     $.ajax({
         url: queryURL,
@@ -28,11 +22,27 @@ function displayGIF() {
 
         var gifs = response.data
 
+        // displays still images when gif term is searched
         for (var i = 0; i < gifs.length; i++) {
-            $("#gifDisplay").append("<img src='" + gifs[i].images.fixed_height_still.url + "'>")
+            $("#gifDisplay").append("<img src='" + gifs[i].images.fixed_height_still.url + "'" + "data-state=still" + ">")
         }
+
+        // I'M HAVING TROUBLE HERE -- this is supposed to animate images when clicked and stop them when clicked again but it doesn't seem to be working
+        $("img").on("click", function () {
+            var state = $(this).attr("data-state");
+            if (state === "still") {
+                $(this).attr("src", $(this).attr(response.data.images.fixed_height.url));
+                $(this).attr("data-state", "animate");
+            } else {
+                $(this).attr("src", $(this).attr(response.data.images.fixed_height_still.url));
+                $(this).attr("data-state", "still");
+            }
+        });
+
     });
 }
+
+
 
 
 // Function for displaying gifs data
@@ -72,10 +82,11 @@ $("#searchGifs").on("click", function (e) {
 
 // function enables the user to press 'enter' in addition to clicking the search button
 $("#searchText").keyup(function (event) {
-    if (event.which == 13) {
+    if (event.which === 13) {
         $("#searchGifs").click();
     }
 });
+
 
 
 
