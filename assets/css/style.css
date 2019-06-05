@@ -1,7 +1,9 @@
 img {
     height: 100%;
-    width: 300px;
+    width: 275px;
     margin: 3px;
+
+    /* margin: auto; */
 }
 
 #searchCol {
@@ -11,4 +13,6 @@ img {
 
 #gifDisplay {
     margin-bottom: 150px;
+    /* margin-right: auto;
+    margin-left: auto; */
 }
